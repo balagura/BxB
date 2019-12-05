@@ -1,0 +1,16 @@
+Package: BxB
+Title: Beam-beam simulation for vdM scans at LHC
+Version: 0.900
+Date: 2019-12-01
+Authors@R: person("Vladislav", "BALAGURA", email = "balagura@cern.ch", role = c("aut", "cre"))
+Description: Beam-beam simulation for vdM scans at LHC.
+License: GPL (>= 3)
+Depends: R (>= 3.3.3)
+Encoding: UTF-8
+LazyData: true
+LinkingTo: Rcpp
+Imports: Rcpp (>= 1.0.2)
+SystemRequirements: C++17
+RoxygenNote: 6.1.1
+URL: http://github.com/balagura/BxB
+BugReports: http://github.com/balagura/BxB/issues
