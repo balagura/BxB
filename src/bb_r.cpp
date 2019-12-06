@@ -131,7 +131,7 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
   s.n_sigma_cut = as<double>(sim["n_sigma_cut"]);
   vector<int> n_cells = as<vector<int> >(sim["density_and_field_interpolators_n_cells_along_grid_side"]);
   if (n_cells.size() != 2) {
-    Rcpp::stop("The length of \"n_cells\" array must be 2");
+    Rcpp::stop("The length of \"density_and_field_interpolators_n_cells_along_grid_side\" array must be 2");
   }
   s.density_and_field_interpolators_n_cells_along_grid_side[0] = n_cells[0];
   s.density_and_field_interpolators_n_cells_along_grid_side[1] = n_cells[1];
