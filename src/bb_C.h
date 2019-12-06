@@ -61,9 +61,10 @@ typedef struct BB_Summary_Per_Step_IP BB_Summary_Per_Step_IP;
 extern "C" {
 #endif
   void beam_beam(const Kicked_C* kicked, const Kickers_C* kickers, const Sim_C* sim,
-		 BB_Summary_Per_Step_IP* summary);
+		 BB_Summary_Per_Step_IP* summary, bool quiet);
   /* summary[n_ip * n_step] should be pre-allocated,
-     summary[ip * n_step + step]" will  contain BB_Summary_Per_Step_IP for (ip, step) */
+     summary[ip * n_step + step]" will  contain BB_Summary_Per_Step_IP for (ip, step),
+     "quiet" controls printing to cout */
 
 #ifdef __cplusplus
 }

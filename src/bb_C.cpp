@@ -13,7 +13,7 @@ void convert(const Multi_Gaussian_C& from, vector<Gaussian>* to) {
 }
   
 void beam_beam(const Kicked_C* kicked, const Kickers_C* kickers, const Sim_C* sim,
-	       BB_Summary_Per_Step_IP* summary) {
+	       BB_Summary_Per_Step_IP* summary, bool quiet) {
   int n_ip = sim->n_ip;
   int n_step = sim->n_step;
   Kicked k;
@@ -66,7 +66,7 @@ void beam_beam(const Kicked_C* kicked, const Kickers_C* kickers, const Sim_C* si
   s.output_dir = sim->output_dir;
   s.output = sim->output;
   vector<vector<BB_Summary_Per_Step_IP> > sum(n_ip, vector<BB_Summary_Per_Step_IP>(n_step));
-  beam_beam(k, ks, s, &sum); // sum[ip][step]
+  beam_beam(k, ks, s, &sum, quiet); // sum[ip][step]
   for (int ip=0; ip<n_ip; ++ip) {
     for (int step=0; step<n_step; ++step) {
       summary[ip * n_step + step] = sum[ip][step];
