@@ -106,8 +106,8 @@ void print(ostream& os, const Kicked& kicked, const Kickers& kickers, const Sim&
 
 // -------------------- Simulation --------------------
 void beam_beam(const Kicked& kicked, const Kickers& kickers, const Sim& sim,
-	       vector<vector<BB_Summary_Per_Step_IP> >* summary, bool silent) {
-  if (silent) {
+	       vector<vector<BB_Summary_Per_Step_IP> >* summary, bool quiet) {
+  if (quiet) {
     if (!consistent_n_ip(kicked, kickers, sim)) {
       cerr << "Lengths of kicked X,Y-beta, X,Y-next_phase_over_2pi and "
 	   << "kickers n_particles, X,Y-gaussian, X,Y-position\n"
@@ -128,7 +128,7 @@ void beam_beam(const Kicked& kicked, const Kickers& kickers, const Sim& sim,
       n_step = max(n_step, int(kickers.position[coor][ip].size()));
     }
   }
-  vector<vector<double  > > position[2];
+  vector<vector<double> > position[2];
   for (int coor=0; coor<2; ++coor) {
     position[coor].resize(n_ip);
     for (int ip=0; ip<n_ip; ++ip) {
@@ -363,11 +363,13 @@ void beam_beam(const Kicked& kicked, const Kickers& kickers, const Sim& sim,
       z2[ip] = complex<double>(bb.kicker_positions(ip, 0)[step],
 			       bb.kicker_positions(ip, 1)[step]);
     }
-    cout << "Simulating kicker position";
-    if (n_ip > 1) cout << "s";
-    cout << " ";
-    for (size_t ip=0; ip<n_ip; ++ip) cout << z2[ip] << " ";
-    cout << "..." << flush;
+    if (!quiet) {
+      cout << "Simulating kicker position";
+      if (n_ip > 1) cout << "s";
+      cout << " ";
+      for (size_t ip=0; ip<n_ip; ++ip) cout << z2[ip] << " ";
+      cout << "..." << flush;
+    }
     // average kick when the kicked bunch is at -z2[ip] and the kicker is at
     // (0,0):
     vector<complex<double> > kick_average(n_ip);
@@ -607,7 +609,7 @@ void beam_beam(const Kicked& kicked, const Kickers& kickers, const Sim& sim,
 		       << s.no_bb_avr_numeric[1] << "\n";
       }
     }
-    cout << " done" << endl;
+    if (!quiet) cout << " done" << endl;
   } // end of loop over steps
     //
   {
@@ -617,7 +619,7 @@ void beam_beam(const Kicked& kicked, const Kickers& kickers, const Sim& sim,
       // check the precision of the interpolation by measuring the absolute
       // mismatches with the exact density/field values at randomly distributed
       // points inside the interpolation grid
-      if (bb.is_density_interpolated()) {
+      if (!quiet && bb.is_density_interpolated()) {
 	vector<array<pair<double, double>, 2> > v =
 	  bb.max_and_average_interpolation_mismatches_relative_to_max_density(n_random);
 	cout << "Max and average |precise - interpolated| density mismatches normalized to max density at\n";
@@ -629,7 +631,7 @@ void beam_beam(const Kicked& kicked, const Kickers& kickers, const Sim& sim,
 	       << fixed;      // change back to defaul fixed format
 	}
       }
-      if (bb.is_field_interpolated()) {
+      if (!quiet && bb.is_field_interpolated()) {
 	vector<pair<double, double> > v =
 	  bb.max_and_average_interpolation_mismatches_relative_to_max_field(n_random);
 	cout << "Max and average |precise - interpolated| E-field mismatches normalized to max |E| at\n";
@@ -642,7 +644,7 @@ void beam_beam(const Kicked& kicked, const Kickers& kickers, const Sim& sim,
       }
     }
   }
-  if (output_dir != "") {
+  if (!quiet && output_dir != "") {
     cout << "\nResults are written to " << output_dir << " directory.\n\n"
 	 << "The summary appears in \"summary.txt\" in the format:\n"
 	 << "<step> <IP> <beam-beam/no beam-beam luminosity correction>\n"

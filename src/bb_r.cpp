@@ -45,7 +45,7 @@ void gaussian(SEXP rg, vector<Gaussian>& g) {
 //' @author Vladislav BALAGURA <balagura@cern.ch>
 //' @export
 // [[Rcpp::export]]
-List beam_beam(List kicked, List kickers, List sim) {
+List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
   Kicked k;
   k.momentum = as<double>(kicked["momentum"]);
   k.Z = as<int>(kicked["Z"]);
@@ -88,7 +88,7 @@ List beam_beam(List kicked, List kickers, List sim) {
   s.output_dir = as<string>(sim["output_dir"]);
   s.output = as<string>(sim["output"]);
   vector<vector<BB_Summary_Per_Step_IP> > sum(n_ip, vector<BB_Summary_Per_Step_IP>(n_step));
-  beam_beam(k, ks, s, &sum);
+  beam_beam(k, ks, s, &sum, quiet);
   vector<double>
     v_ip(n_step * n_ip),
     v_step(n_step * n_ip),
