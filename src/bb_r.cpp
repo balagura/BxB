@@ -122,11 +122,17 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
   size_t n_step = ks.position[0][0].size();
   Sim s;
   s.n_points = as<int>(sim["n_points"]);
-  const auto& nturns = as<std::vector<int> >(sim["n_turns"]);
-  copy(nturns.begin(), nturns.end(), s.n_turns);
+  const auto& n_turns = as<std::vector<int> >(sim["n_turns"]);
+  if (n_turns.size() != PHASES) {
+    Rcpp::stop("\"n_turns\" array has wrong length");
+  }
+  copy(n_turns.begin(), n_turns.end(), s.n_turns);
   s.kick_model = as<string>(sim["kick_model"]);
   s.n_sigma_cut = as<double>(sim["n_sigma_cut"]);
   vector<int> n_cells = as<vector<int> >(sim["density_and_field_interpolators_n_cells_along_grid_side"]);
+  if (n_cells.size() != 2) {
+    Rcpp::stop("The length of \"n_cells\" array must be 2");
+  }
   s.density_and_field_interpolators_n_cells_along_grid_side[0] = n_cells[0];
   s.density_and_field_interpolators_n_cells_along_grid_side[1] = n_cells[1];
   s.n_random_points_to_check_interpolation = as<int>(sim["n_random_points_to_check_interpolation"]);
