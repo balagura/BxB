@@ -50,7 +50,7 @@ struct Sim {
 void beam_beam(const Kicked& kicked,
 	       const Kickers& kickers, const Sim& sim,
 	       vector<vector<BB_Summary_Per_Step_IP> >* summary, // results: summary[ip][step]
-	       bool silent = false);      // print input and progress to cout?
+	       bool quiet = false);      // print input and progress to cout?
 
 void print(ostream& os, const Kicked& kicked, const Kickers& kickers, const Sim& sim);
 
