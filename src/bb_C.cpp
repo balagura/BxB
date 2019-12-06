@@ -69,7 +69,7 @@ void beam_beam(const Kicked_C* kicked, const Kickers_C* kickers, const Sim_C* si
   beam_beam(k, ks, s, &sum); // sum[ip][step]
   for (int ip=0; ip<n_ip; ++ip) {
     for (int step=0; step<n_step; ++step) {
-      summary[step * n_ip + ip] = sum[ip][step];
+      summary[ip * n_step + step] = sum[ip][step];
     }
   }
 }
