@@ -62,8 +62,8 @@ extern "C" {
 #endif
   void beam_beam(const Kicked_C* kicked, const Kickers_C* kickers, const Sim_C* sim,
 		 BB_Summary_Per_Step_IP* summary);
-  /* summary[n_step * n_ip] should be pre-allocated,
-     summary[step * n_ip + ip]" will  contain BB_Summary_Per_Step_IP for (ip, step) */
+  /* summary[n_ip * n_step] should be pre-allocated,
+     summary[ip * n_step + step]" will  contain BB_Summary_Per_Step_IP for (ip, step) */
 
 #ifdef __cplusplus
 }
