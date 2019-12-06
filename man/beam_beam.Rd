@@ -4,7 +4,7 @@
 \alias{beam_beam}
 \title{beam_beam}
 \usage{
-beam_beam(kicked, kickers, sim)
+beam_beam(kicked, kickers, sim, quiet = FALSE)
 }
 \value{
 data.frame summary, including corrections to overlap integrals

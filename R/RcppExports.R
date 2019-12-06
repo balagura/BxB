@@ -28,7 +28,7 @@ NULL
 #'
 #' @author Vladislav BALAGURA <balagura@cern.ch>
 #' @export
-beam_beam <- function(kicked, kickers, sim) {
-    .Call('_BxB_beam_beam', PACKAGE = 'BxB', kicked, kickers, sim)
+beam_beam <- function(kicked, kickers, sim, quiet = FALSE) {
+    .Call('_BxB_beam_beam', PACKAGE = 'BxB', kicked, kickers, sim, quiet)
 }
 

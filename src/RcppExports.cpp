@@ -6,21 +6,22 @@
 using namespace Rcpp;
 
 // beam_beam
-List beam_beam(List kicked, List kickers, List sim);
-RcppExport SEXP _BxB_beam_beam(SEXP kickedSEXP, SEXP kickersSEXP, SEXP simSEXP) {
+List beam_beam(List kicked, List kickers, List sim, bool quiet);
+RcppExport SEXP _BxB_beam_beam(SEXP kickedSEXP, SEXP kickersSEXP, SEXP simSEXP, SEXP quietSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type kicked(kickedSEXP);
     Rcpp::traits::input_parameter< List >::type kickers(kickersSEXP);
     Rcpp::traits::input_parameter< List >::type sim(simSEXP);
-    rcpp_result_gen = Rcpp::wrap(beam_beam(kicked, kickers, sim));
+    Rcpp::traits::input_parameter< bool >::type quiet(quietSEXP);
+    rcpp_result_gen = Rcpp::wrap(beam_beam(kicked, kickers, sim, quiet));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_BxB_beam_beam", (DL_FUNC) &_BxB_beam_beam, 3},
+    {"_BxB_beam_beam", (DL_FUNC) &_BxB_beam_beam, 4},
     {NULL, NULL, 0}
 };
 
