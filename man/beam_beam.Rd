@@ -6,8 +6,56 @@
 \usage{
 beam_beam(kicked, kickers, sim, quiet = FALSE)
 }
+\arguments{
+\item{kicked}{list with the fields like in the following example:
+list(momentum = 3500, Z=1, ip=1,
+     beta = list(x=c(rep(1.5,3),6),
+                 y=c(rep(1.5,3),6)), 
+     next_phase_over_2pi = list(x = 0.31*(1:4),
+                                y = 0.32*(1:4)),
+     gaussian = list(x = list(sig=rep(40,2), w=c(0.2, 0.8)),
+                     y = list(sig=c(39.99, 40), w=c(0.3, 0.7))),
+     exact_phases = FALSE)}
+
+\item{kickers}{list like eg.
+list(Z = 1,
+     n_particles = rep(8.5e10, 4),
+     gaussian = list(x = list(list(sig=rep(40,2), w=c(0.2, 0.8)),
+                         list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
+                         list(sig=c(40.002, 40.001, 40.001, 39.998),
+                              w = c(2, 10, 10, 2)),
+                         list(sig=80, w=1)),
+                y = list(list(sig=40, w=0.2),
+                         list(sig=40, w=0.2),
+                         list(sig=40, w=0.2),
+                         list(sig=c(80.001, 79.999), w=rep(1,2)))),
+position = list(x = list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
+                y = list(0,0,0,0)))}
+
+\item{sim}{list like eg.
+list(n_points = 5000,
+     ns = c(1000, 1000, 0, 5000),
+     kick_model = 'precise',
+     n_sigma_cut = 5,
+     density_and_field_interpolators_n_cells_along_grid_side = c(500, 500),
+     n_random_points_to_check_interpolation = 10000,
+     select_one_turn_out_of = 1000,
+     seed = 123456789,
+     output_dir = "r",
+     output = "integrals.per.turn avr.xy.per.turn integrals.per.particle avr.xy.per.particle points")}
+
+\item{quiet}{controls wether the input and the execution progress will be printed}
+}
 \value{
-data.frame summary, including corrections to overlap integrals
+data.frame summary with the fields
+"ip", "step",
+"correction",
+"no_bb_analytic_integ",
+"no_bb_numeric_over_analytic_integ",
+"no_bb_numeric_over_analytic_integ_err",
+"avr_x_analytic", "avr_y_analytic",
+"avr_x_numeric", "avr_y_numeric",
+"no_bb_avr_x_numeric", "no_bb_avr_y_numeric"
 }
 \description{
 Simulates bunch particles in an accelerator influenced by the

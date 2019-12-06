@@ -7,9 +7,9 @@
 \title{B*B, beam-beam simulation for vdM scans at LHC}
 \description{
 "beam_beam" function simulates bunch particles in an
-             accelerator influenced by the electromagnetic interaction
-             with another bunch ("beam-beam" effect). Reports corrections
-             to the bunches overlap integral.
+             accelerator influenced by the electromagnetic force of
+             another bunch ("beam-beam" effect). Reports corrections
+             to the bunches overlap integral. See "?beam_beam" for details.
 }
 \author{
 Vladislav BALAGURA <balagura@cern.ch>
