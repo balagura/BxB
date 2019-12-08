@@ -353,6 +353,7 @@ void beam_beam(const Kicked& kicked, const Kickers& kickers, const Sim& sim,
     max_xy_r = max(max_xy_r, max(p.first, p.second));
   }
   Outputs output(n_ip, n_points, max_xy_r, sim.output, output_dir);
+  summary->resize(n_ip, vector<BB_Summary_Per_Step_IP>(n_step));
   // Initial point amplitudes (rX, rY) were prepared for ip=0, so simulation
   // loop should also start from ip=0
   //

@@ -119,12 +119,11 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
       ks.position[coor][ip] = as<vector<double> >(as<List>(as<List>(kickers["position"])[xy])[ip]);
     }
   }
-  size_t n_step = ks.position[0][0].size();
   Sim s;
   s.n_points = as<int>(sim["n_points"]);
   const auto& n_turns = as<std::vector<int> >(sim["n_turns"]);
   if (n_turns.size() != PHASES) {
-    Rcpp::stop("\"n_turns\" array has wrong length");
+    Rcpp::stop("The length of \"n_turns\" array must be " + to_string(PHASES));
   }
   copy(n_turns.begin(), n_turns.end(), s.n_turns);
   s.kick_model = as<string>(sim["kick_model"]);
@@ -133,15 +132,16 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
   if (n_cells.size() != 2) {
     Rcpp::stop("The length of \"density_and_field_interpolators_n_cells_along_grid_side\" array must be 2");
   }
-  s.density_and_field_interpolators_n_cells_along_grid_side[0] = n_cells[0];
-  s.density_and_field_interpolators_n_cells_along_grid_side[1] = n_cells[1];
+  copy(n_cells.begin(), n_cells.end(),
+       s.density_and_field_interpolators_n_cells_along_grid_side);
   s.n_random_points_to_check_interpolation = as<int>(sim["n_random_points_to_check_interpolation"]);
   s.select_one_turn_out_of = as<int>(sim["select_one_turn_out_of"]);
   s.seed = as<long int>(sim["seed"]);
   s.output_dir = as<string>(sim["output_dir"]);
   s.output = as<string>(sim["output"]);
-  vector<vector<BB_Summary_Per_Step_IP> > sum(n_ip, vector<BB_Summary_Per_Step_IP>(n_step));
+  vector<vector<BB_Summary_Per_Step_IP> > sum;
   beam_beam(k, ks, s, &sum, quiet);
+  int n_step = sum[0].size();
   vector<double>
     v_ip(n_step * n_ip),
     v_step(n_step * n_ip),
