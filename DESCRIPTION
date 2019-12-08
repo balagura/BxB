@@ -4,7 +4,7 @@ Version: 0.900
 Date: 2019-12-01
 Authors@R: person("Vladislav", "BALAGURA", email = "balagura@cern.ch", role = c("aut", "cre"))
 Description: Beam-beam simulation for vdM scans at LHC.
-License: GPL (>= 3)
+License: GPL (>= 3) | file LICENSE
 Depends: R (>= 3.3.3)
 Encoding: UTF-8
 LazyData: true
