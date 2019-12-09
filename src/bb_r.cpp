@@ -216,5 +216,5 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
 			   _["avr_x_analytic"] = avr_x_analytic,
 			   _["avr_y_analytic"] = avr_y_analytic,
 			   _["avr_x_numeric"] = avr_x_numeric,
-			   _["avr_y_numeric"] = avr_y_numeric)
+			   _["avr_y_numeric"] = avr_y_numeric);
 }
