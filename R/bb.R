@@ -424,17 +424,15 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'     including the overlap integrals and the corresponding beam-beam
 #'     corrections. Format: \preformatted{<step> <IP> <beam-beam/no beam-beam luminosity correction>
 #' no beam-beam: <analytic> overlap, <numeric/analytic ratio> and <its error>
-#' <X>, <Y> numeric kicked center-of-mass shift without beam-beam
-#' <X>, <Y> numeric shift with beam-beam
-#' <X>, <Y> analytic shift with beam-beam.}
+#' no beam-beam:    <X>, <Y> numeric center-of-mass shift
+#' beam-beam shift: <X>, <Y> analytic, <X>, <Y> numeric}
 #'
-#' The error of the numeric/analytic overlap ratio without beam-beam is roughly
-#' estimated from the turn-by-turn variations, available only if
-#' \code{integrals.per.turn} option is set in \code{output}. Otherwise this
-#' error is assigned to \code{nan}. Similarly, numeric \code{<X>, <Y>} average
-#' shifts are calculated only if \code{avr.xy.per.particle} option is chosen,
-#' and set to \code{nan} otherwise. Without beam-beam these shifts should be
-#' close to zero.
+#' No beam-beam numeric/analytic error is roughly estimated from turn-by-turn
+#' variations, available only if \code{integrals.per.turn} option is set in
+#' \code{output}. Otherwise this error is set to \code{nan}. Similarly,
+#' numeric <X>, <Y> shifts are calculated only if \code{avr.xy.per.particle}
+#' option is chosen, and set to \code{nan} otherwise. Without beam-beam these
+#' shifts should be close to zero.
 #'
 #' If, minimally, only this summary is required from the simulation, it is
 #' better to set \code{output} to am empty string (""). In this case the
