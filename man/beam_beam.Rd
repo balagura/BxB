@@ -7,60 +7,72 @@
 beam_beam(kicked, kickers, sim, quiet = FALSE)
 }
 \arguments{
-\item{kicked}{list with the fields like in the following example:
-list(momentum = 3500, Z=1, ip=1,
-     beta = list(x=c(rep(1.5,3),6),
-                 y=c(rep(1.5,3),6)), 
-     next_phase_over_2pi = list(x = 0.31*(1:4),
-                                y = 0.32*(1:4)),
-     gaussian = list(x = list(sig=rep(40,2), w=c(0.2, 0.8)),
-                     y = list(sig=c(39.99, 40), w=c(0.3, 0.7))),
-     exact_phases = FALSE)}
+\item{kicked}{List with the parameters of the kicked bunch. It can conveniently be created with
+\code{\link{kicked}} function. See \code{?kicked} for details.}
 
-\item{kickers}{list like eg.
-list(Z = 1,
-     n_particles = rep(8.5e10, 4),
-     gaussian = list(x = list(list(sig=rep(40,2), w=c(0.2, 0.8)),
-                         list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
-                         list(sig=c(40.002, 40.001, 40.001, 39.998),
-                              w = c(2, 10, 10, 2)),
-                         list(sig=80, w=1)),
-                y = list(list(sig=40, w=0.2),
-                         list(sig=40, w=0.2),
-                         list(sig=40, w=0.2),
-                         list(sig=c(80.001, 79.999), w=rep(1,2)))),
-position = list(x = list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
-                y = list(0,0,0,0)))}
+\item{kickers}{List for the kicker bunches, can be created using
+\code{\link{kickers}} function. See \code{?kickers} for details.}
 
-\item{sim}{list like eg.
-list(n_points = 5000,
-     ns = c(1000, 1000, 0, 5000),
-     kick_model = 'precise',
-     n_sigma_cut = 5,
-     density_and_field_interpolators_n_cells_along_grid_side = c(500, 500),
-     n_random_points_to_check_interpolation = 10000,
-     select_one_turn_out_of = 1000,
-     seed = 123456789,
-     output_dir = "r",
-     output = "integrals.per.turn avr.xy.per.turn integrals.per.particle avr.xy.per.particle points")}
+\item{sim}{List with B*B simulation options. Can be conveniently created with
+\code{\link{sim}} function. See \code{?sim} for details.}
 
-\item{quiet}{controls wether the input and the execution progress will be printed}
+\item{quiet}{controls whether the input and the execution progress will be printed to cout}
 }
 \value{
-data.frame summary with the fields
-"ip", "step",
-"correction",
-"no_bb_analytic_integ",
-"no_bb_numeric_over_analytic_integ",
-"no_bb_numeric_over_analytic_integ_err",
-"avr_x_analytic", "avr_y_analytic",
-"avr_x_numeric", "avr_y_numeric",
-"no_bb_avr_x_numeric", "no_bb_avr_y_numeric"
+Results of the simulation as data.frame with the fields\preformatted{
+"ip"          - interaction point, counting from zero
+"step"        - scan step number, counting from zero
+"correction" - beam-beam/no beam-beam luminosity correction
+"no_bb_analytic_integ"                  - analytic overlap integral
+"no_bb_numeric_over_analytic_integ"     - numeric/analytic ratio
+"no_bb_numeric_over_analytic_integ_err" - its error
+"avr_x_analytic", "avr_y_analytic" - numeric center-of-mass shift without beam-beam
+"avr_x_numeric", "avr_y_numeric"             - numeric shift with beam-beam
+"no_bb_avr_x_numeric", "no_bb_avr_y_numeric" - analytic shift with beam-beam}
+
+In addition, depending on the options specified in \code{sim.output},
+the program can print out several files in the \code{sim.output_dir}
+directory. See \code{\link{?sim}} for details about that and the simulation
+in general.
 }
 \description{
 Simulates bunch particles in an accelerator influenced by the
              electromagnetic interaction with another bunch ("beam-beam"
              effect). Reports corrections to the bunches overlap integral.
+}
+\examples{
+beam_beam(kicked = kicked(momentum = 3500, Z=1, ip=1,
+                          beta = list(x=c(rep(1.5,3),6),
+                                      y=c(rep(1.5,3),6)), 
+                          next_phase_over_2pi = list(x = 0.31*(1:4),
+                                                     y = 0.32*(1:4)),
+                          gaussian = list(x = list(sig=rep(40,2), w=c(0.2, 0.8)),
+                                          y = list(sig=c(39.99, 40), w=c(0.3, 0.7))),
+                          exact_phases = FALSE),
+          kickers =  kickers(Z = 1,
+                             n_particles = rep(8.5e10, 4),
+                             gaussian = list(x = list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
+                                                      list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
+                                                      list(sig=c(40.002, 40.001, 40.001, 39.998),
+                                                           w = c(2, 10, 10, 2)),
+                                                      list(sig=80, w=1)),
+                                             y = list(list(sig=40, w=0.2),
+                                                      list(sig=40, w=0.2),
+                                                      list(sig=40, w=0.2),
+                                                      list(sig=c(80.001, 79.999), w=rep(1, 2)))),
+                             position = list(x = list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
+                                             y = list(0,0,0,0))),
+          sim =  sim(n_points = 5000,
+                     ns = c(1000, 1000, 0, 5000),
+                     kick_model = 'precise',
+                     n_sigma_cut = 5,
+                     density_and_field_interpolators_n_cells_along_grid_side = c(500, 500),
+                     n_random_points_to_check_interpolation = 10000,
+                     select_one_turn_out_of = 1000,
+                     seed = 123456789,
+                     output_dir = "",
+                     output = "")
+
 }
 \author{
 Vladislav BALAGURA <balagura@cern.ch>
