@@ -7,20 +7,20 @@
 beam_beam(kicked, kickers, sim, quiet = FALSE)
 }
 \arguments{
-\item{kicked}{List with the parameters of the kicked bunch. It can conveniently be created with
-\code{\link{kicked}} function. See \code{?kicked} for details.}
+\item{kicked}{List with the parameters of the kicked bunch. It can conveniently be 
+created with the \code{\link{kicked}} function. See \code{?kicked} for details.}
 
-\item{kickers}{List for the kicker bunches, can be created using
+\item{kickers}{List for the kicker bunches, can be created using the
 \code{\link{kickers}} function. See \code{?kickers} for details.}
 
-\item{sim}{List with B*B simulation options. Can be conveniently created with
+\item{sim}{List with B*B simulation options. Can be conveniently created with the
 \code{\link{sim}} function. See \code{?sim} for details.}
 
 \item{quiet}{controls whether the input and the execution progress will be printed to cout}
 }
 \value{
-Results of the simulation as data.frame with the fields\preformatted{
-"ip"          - interaction point, counting from zero
+Results of the simulation as data.frame with the
+fields\preformatted{"ip"          - interaction point, counting from zero
 "step"        - scan step number, counting from zero
 "correction" - beam-beam/no beam-beam luminosity correction
 "no_bb_analytic_integ"                  - analytic overlap integral
