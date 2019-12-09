@@ -60,27 +60,27 @@ void gaussian(SEXP rg, vector<Gaussian>& g) {
 //'              electromagnetic interaction with another bunch ("beam-beam"
 //'              effect). Reports corrections to the bunches overlap integral.
 //'
-//' @param kicked List with the parameters of the kicked bunch. It can conveniently be created with
-//'           \code{\link{kicked}} function. See \code{?kicked} for details.
+//' @param kicked List with the parameters of the kicked bunch. It can conveniently be 
+//'           created with the \code{\link{kicked}} function. See \code{?kicked} for details.
 //'
-//' @param kickers List for the kicker bunches, can be created using
+//' @param kickers List for the kicker bunches, can be created using the
 //'           \code{\link{kickers}} function. See \code{?kickers} for details.
 //'
-//' @param sim List with B*B simulation options. Can be conveniently created with
+//' @param sim List with B*B simulation options. Can be conveniently created with the
 //'           \code{\link{sim}} function. See \code{?sim} for details.
 //'
 //' @param quiet controls whether the input and the execution progress will be printed to cout
 //'
-//' @return Results of the simulation as data.frame with the fields\preformatted{
-//' "ip"          - interaction point, counting from zero
+//' @return Results of the simulation as data.frame with the
+//' fields\preformatted{"ip"          - interaction point, counting from zero
 //' "step"        - scan step number, counting from zero
 //' "correction" - beam-beam/no beam-beam luminosity correction
 //' "no_bb_analytic_integ"                  - analytic overlap integral
 //' "no_bb_numeric_over_analytic_integ"     - numeric/analytic ratio
-//' "no_bb_numeric_over_analytic_integ_err" - its error
-//' "avr_x_analytic", "avr_y_analytic" - numeric center-of-mass shift without beam-beam
-//' "avr_x_numeric", "avr_y_numeric"             - numeric shift with beam-beam
-//' "no_bb_avr_x_numeric", "no_bb_avr_y_numeric" - analytic shift with beam-beam}
+//' "no_bb_numeric_over_analytic_integ_err" - its error, all without beam-beam
+//' "avr_x_analytic", "avr_y_analytic"           - analytic center-of-mass shift
+//' "avr_x_numeric", "avr_y_numeric"             - numeric shift
+//' "no_bb_avr_x_numeric", "no_bb_avr_y_numeric" - analytic shift without beam-beam}
 //'
 //' In addition, depending on the options specified in \code{sim.output},
 //' the program can print out several files in the \code{sim.output_dir}
@@ -197,12 +197,12 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
       no_bb_analytic_integ[i] = bb.no_bb_analytic_integ;
       no_bb_numeric_over_analytic_integ[i] = bb.no_bb_numeric_over_analytic_integ;
       no_bb_numeric_over_analytic_integ_err[i] = bb.no_bb_numeric_over_analytic_integ_err;
+      no_bb_avr_x_numeric[i] = bb.no_bb_avr_numeric[0];
+      no_bb_avr_y_numeric[i] = bb.no_bb_avr_numeric[1];
       avr_x_analytic[i] = bb.avr_analytic[0];
       avr_y_analytic[i] = bb.avr_analytic[1];
       avr_x_numeric[i] = bb.avr_numeric[0];
       avr_y_numeric[i] = bb.avr_numeric[1];
-      no_bb_avr_x_numeric[i] = bb.no_bb_avr_numeric[0];
-      no_bb_avr_y_numeric[i] = bb.no_bb_avr_numeric[1];
     }
   }
   return DataFrame::create(_["ip"] = v_ip,
@@ -211,10 +211,10 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
 			   _["no_bb_analytic_integ"] = no_bb_analytic_integ,
 			   _["no_bb_numeric_over_analytic_integ"] = no_bb_numeric_over_analytic_integ,
 			   _["no_bb_numeric_over_analytic_integ_err"] = no_bb_numeric_over_analytic_integ_err,
+			   _["no_bb_avr_x_numeric"] = no_bb_avr_x_numeric,
+			   _["no_bb_avr_y_numeric"] = no_bb_avr_y_numeric,
 			   _["avr_x_analytic"] = avr_x_analytic,
 			   _["avr_y_analytic"] = avr_y_analytic,
 			   _["avr_x_numeric"] = avr_x_numeric,
-			   _["avr_y_numeric"] = avr_y_numeric,
-			   _["no_bb_avr_x_numeric"] = no_bb_avr_x_numeric,
-			   _["no_bb_avr_y_numeric"] = no_bb_avr_y_numeric);
+			   _["avr_y_numeric"] = avr_y_numeric)
 }
