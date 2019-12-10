@@ -408,12 +408,15 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'
 #' The integers i_turn and i_particle are counted from zero.
 #'
-#' In addition, the files \code{output_dir}/rx_ry_weights.txt.gz,
+#' In addition, the files
+#' \code{output_dir}/input.txt,
+#' \code{output_dir}/rx_ry_weights.txt.gz,
 #' \code{output_dir}/kicker_positions.txt,
 #' \code{output_dir}/interpolation_precision.txt and
 #' \code{output_dir}/summary.txt are printed out regardless of options in
 #' \code{output} with the following content:
 #'
+#' \code{output_dir}/input.txt - all input parameters.
 #' \code{output_dir}/rx_ry_weights.txt.gz - for every simulated particle: its
 #'             initial rX and rY radii (in X,X' and Y,Y' phase spaces) at ip
 #'             and its "weight".
