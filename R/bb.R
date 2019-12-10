@@ -144,8 +144,6 @@ kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, gaussian, exact_p
 #'     specifies the simultaneous scan at IP=0 and IP=2 along X with the beams
 #'     at IP=1, 3 separated by 500 um, and without Y-separations in all IPs.
 #' 
-#' @details 
-#' 
 #' @return List with all function arguments as list components. It contains
 #'     full information on the kicker bunches required for the B*B
 #'     simulation. The list can be fed to \code{\link{beam_beam}(kicked,
@@ -264,7 +262,7 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'
 #' The four-dimensional kicked bunch density is sampled internally in a
 #' two-dimensional rX-rY grid of the radii in the X-X', Y-Y' planes at the
-#' interaction point IP = 0.  Each grid side (rX or rY) extends from 0 to a
+#' interaction point IP = 0. Each grid side (rX or rY) extends from 0 to a
 #' maximal radius rX,Y_max. The latter is chosen such that the circle with the
 #' radius rX_max (or rY_max) contains the same fraction of a multi
 #' two-dimensional Gaussian as that of a single two-dimensional Gaussian
@@ -434,7 +432,7 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'     corrections. Format: \preformatted{<step> <IP> <beam-beam/no beam-beam luminosity correction>
 #' no beam-beam: <analytic> overlap, <numeric/analytic ratio> and <its error>
 #' no beam-beam: <X>, <Y> numeric center-of-mass shift
-#'    beam-beam: <X>, <Y> analytic, <X>, <Y> numeric shift}
+#'    beam-beam: <X>, <Y> analytic, <X>, <Y> numeric shift.}
 #' 
 #' No beam-beam numeric/analytic error is roughly estimated from turn-by-turn
 #' variations, available only if \code{integrals_per_turn} option is set in
