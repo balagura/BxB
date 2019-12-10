@@ -72,15 +72,15 @@ void gaussian(SEXP rg, vector<Gaussian>& g) {
 //' @param quiet controls whether the input and the execution progress will be printed to cout
 //'
 //' @return Results of the simulation as data.frame with the
-//' fields\preformatted{"ip"          - interaction point, counting from zero
-//' "step"        - scan step number, counting from zero
-//' "correction" - beam-beam/no beam-beam luminosity correction
-//' "no_bb_analytic_integ"                  - analytic overlap integral
-//' "no_bb_numeric_over_analytic_integ"     - numeric/analytic ratio
-//' "no_bb_numeric_over_analytic_integ_err" - its error, all without beam-beam
-//' "avr_x_analytic", "avr_y_analytic"           - analytic center-of-mass shift
-//' "avr_x_numeric", "avr_y_numeric"             - numeric shift
-//' "no_bb_avr_x_numeric", "no_bb_avr_y_numeric" - analytic shift without beam-beam}
+//' fields\preformatted{"ip"         - interaction point, counting from zero
+//' "step"       - scan step number, counting from zero
+//' "correction" - beam-beam/no beam-beam luminosity ratio
+//' "no_bb_analytic_integ"                       - analytic overlap integral
+//' "no_bb_numeric_over_analytic_integ"          - numeric/analytic ratio
+//' "no_bb_numeric_over_analytic_integ_err"      - its error
+//' "no_bb_avr_x_numeric", "no_bb_avr_y_numeric" - numeric shift, all without beam-beam
+//' "avr_x_analytic", "avr_y_analytic"  - analytic center-of-mass shift with beam-beam
+//' "avr_x_numeric", "avr_y_numeric"    - numeric shift}
 //'
 //' In addition, depending on the options specified in \code{sim.output},
 //' the program can print out several files in the \code{sim.output_dir}
@@ -90,27 +90,27 @@ void gaussian(SEXP rg, vector<Gaussian>& g) {
 //' @author Vladislav BALAGURA <balagura@cern.ch>
 //'
 //' @examples
-//' beam_beam(kicked = kicked(momentum = 3500, Z=1, ip=1,
-//'                           beta = list(x=c(rep(1.5,3),6),
-//'                                       y=c(rep(1.5,3),6)), 
-//'                           next_phase_over_2pi = list(x = 0.31*(1:4),
-//'                                                      y = 0.32*(1:4)),
-//'                           gaussian = list(x = list(sig=rep(40,2), w=c(0.2, 0.8)),
-//'                                           y = list(sig=c(39.99, 40), w=c(0.3, 0.7))),
+//' beam_beam(kicked = kicked(momentum = 3500, Z = 1, ip = 1,
+//'                           beta = list(x=c(rep(1.5,3), 6),
+//'                                       y=c(rep(1.5,3), 6)), 
+//'                           next_phase_over_2pi = list(x=0.31*(1:4),
+//'                                                      y=0.32*(1:4)),
+//'                           gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
+//'                                           y=list(sig=c(39.99, 40), w=c(0.3, 0.7))),
 //'                           exact_phases = FALSE),
 //'           kickers =  kickers(Z = 1,
 //'                              n_particles = rep(8.5e10, 4),
-//'                              gaussian = list(x = list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
-//'                                                       list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
-//'                                                       list(sig=c(40.002, 40.001, 40.001, 39.998),
-//'                                                            w = c(2, 10, 10, 2)),
-//'                                                       list(sig=80, w=1)),
-//'                                              y = list(list(sig=40, w=0.2),
-//'                                                       list(sig=40, w=0.2),
-//'                                                       list(sig=40, w=0.2),
-//'                                                       list(sig=c(80.001, 79.999), w=rep(1, 2)))),
-//'                              position = list(x = list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
-//'                                              y = list(0,0,0,0))),
+//'                              gaussian = list(x=list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
+//'                                                     list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
+//'                                                     list(sig=c(40.002, 40.001, 40.001, 39.998),
+//'                                                          w=c(2, 10, 10, 2)),
+//'                                                     list(sig=80, w=1)),
+//'                                              y=list(list(sig=40, w=0.2),
+//'                                                     list(sig=40, w=0.2),
+//'                                                     list(sig=40, w=0.2),
+//'                                                     list(sig=c(80.001, 79.999), w=rep(1, 2)))),
+//'                              position = list(x=list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
+//'                                              y=list(0,0,0,0))),
 //'           sim =  sim(n_points = 5000,
 //'                      ns = c(1000, 1000, 0, 5000),
 //'                      kick_model = 'precise',
