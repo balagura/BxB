@@ -18,9 +18,9 @@ kickers}
     elements, "sig" and "w" specifying Gaussian sig(mas) in um and the
     corresponding w(eights) of the multi-Gaussian kicker bunch densities at
     the given IP. All Gaussians should have a common mean. The weights
-    might be given not normalized. For example, \preformatted{gaussian = list(x = list(list(sig = 50, w=1),
-                         list(sig=60, w=10)),
-                y = list(list(sig = c(40,60), w=c(1,2)),
+    might be given not normalized. For example, \preformatted{gaussian = list(x=list(list(sig=50, w=1),
+                       list(sig=60, w=10)),
+                y = list(list(sig=c(40,60), w=c(1,2)),
                          list(sig=50, w=1)))}
 
     specifies kicker densities for the simulation with two IPs.  Note, that
@@ -28,7 +28,7 @@ kickers}
     directly at the IP of the beam-beam interaction, without any
     extrapolation via beta. In other words, such kicker sigmas, in general,
     can differ from the ones at the \code{ip} where the kicked sigmas are
-    specified}
+    specified.}
 
 \item{position}{List of lists. The outer has "x" and "y" components
     specifying kicker positions in um in the frame where the bunch center
@@ -36,9 +36,10 @@ kickers}
     contains "n_ip" vectors where "n_ip" is the number of IPs. Each vector
     can have either one or "n_step" kicker positions for a given IP, where
     "n_step" is the number of scan points in van der Meer scan. If the
-    vector has only one position, it is "recycled", and the kicker position
-    is assumed to be constant during the scan. For example,\preformatted{position = list(x = list(10*(0:20), 500, 10*(0:20), 500),
-                y = list(0,0,0,0))}
+    vector contains only one position, it is "recycled" and the kicker
+    is assumed to be immovable during the
+scan. For example,\preformatted{position = list(x=list(10*(0:20), 500, 10*(0:20), 500),
+                y=list(0,0,0,0))}
 
     specifies the simultaneous scan at IP=0 and IP=2 along X with the beams
     at IP=1, 3 separated by 500 um, and without Y-separations in all IPs.}
@@ -50,9 +51,9 @@ List with all function arguments as list components. It contains
     kickers, sim, quiet)} simulation function.
 }
 \description{
-Convenience function aggregating parameters of the kicker
-    bunches into the "kickers" argument of the
-    \code{\link{beam_beam}(kicked, kickers, sim, quiet)}" simulation function.
+Convenience function aggregating kicker bunch parameters into
+    the "kickers" argument of the \code{\link{beam_beam}(kicked, kickers,
+    sim, quiet)}" simulation function.
 }
 \details{
 
@@ -60,17 +61,17 @@ Convenience function aggregating parameters of the kicker
 \examples{
 kickers(Z = 1,
         n_particles = rep(8.5e10, 4),
-        gaussian = list(x = list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
-                                 list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
-                                 list(sig=c(40.002, 40.001, 40.001, 39.998),
-                                      w = c(2, 10, 10, 2)),
-                                 list(sig=80, w=1)),
-                        y = list(list(sig=40, w=0.2),
-                                 list(sig=40, w=0.2),
-                                 list(sig=40, w=0.2),
-                                 list(sig=c(80.001, 79.999), w=rep(1, 2)))),
-        position = list(x = list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
-                        y = list(0,0,0,0)))
+        gaussian = list(x=list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
+                               list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
+                               list(sig=c(40.002, 40.001, 40.001, 39.998),
+                                    w=c(2, 10, 10, 2)),
+                               list(sig=80, w=1)),
+                        y=list(list(sig=40, w=0.2),
+                               list(sig=40, w=0.2),
+                               list(sig=40, w=0.2),
+                               list(sig=c(80.001, 79.999), w=rep(1, 2)))),
+        position = list(x=list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
+                        y=list(0,0,0,0)))
 
 }
 \seealso{

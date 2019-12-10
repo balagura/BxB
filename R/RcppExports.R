@@ -36,15 +36,15 @@ NULL
 #' @param quiet controls whether the input and the execution progress will be printed to cout
 #'
 #' @return Results of the simulation as data.frame with the
-#' fields\preformatted{"ip"          - interaction point, counting from zero
-#' "step"        - scan step number, counting from zero
-#' "correction" - beam-beam/no beam-beam luminosity correction
-#' "no_bb_analytic_integ"                  - analytic overlap integral
-#' "no_bb_numeric_over_analytic_integ"     - numeric/analytic ratio
-#' "no_bb_numeric_over_analytic_integ_err" - its error
-#' "avr_x_analytic", "avr_y_analytic" - numeric center-of-mass shift without beam-beam
-#' "avr_x_numeric", "avr_y_numeric"             - numeric shift with beam-beam
-#' "no_bb_avr_x_numeric", "no_bb_avr_y_numeric" - analytic shift with beam-beam}
+#' fields\preformatted{"ip"         - interaction point, counting from zero
+#' "step"       - scan step number, counting from zero
+#' "correction" - beam-beam/no beam-beam luminosity ratio
+#' "no_bb_analytic_integ"                       - analytic overlap integral
+#' "no_bb_numeric_over_analytic_integ"          - numeric/analytic ratio
+#' "no_bb_numeric_over_analytic_integ_err"      - its error
+#' "no_bb_avr_x_numeric", "no_bb_avr_y_numeric" - numeric shift, all without beam-beam
+#' "avr_x_analytic", "avr_y_analytic"  - analytic center-of-mass shift with beam-beam
+#' "avr_x_numeric", "avr_y_numeric"    - numeric shift}
 #'
 #' In addition, depending on the options specified in \code{sim.output},
 #' the program can print out several files in the \code{sim.output_dir}

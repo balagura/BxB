@@ -14,8 +14,8 @@ kicked(momentum, Z, ip, beta, next_phase_over_2pi, gaussian,
 
 \item{ip}{Interaction point (IP) number (counting from zero) for which the
 Gaussian sigmas are specified. Kicked bunch sigmas at other IP2 are
-calculated via beta-function values as sigma(ip) * sqrt(beta(ip) /
-beta(IP2). Note, that contrary to that, the kicker sigmas should be
+calculated via beta-function as sigma(ip) * sqrt(beta(ip) /
+beta(IP2)). Note, that contrary to that, the kicker sigmas should be
 specified directly at the IP of the beam-beam interaction, without any
 extrapolation via beta. In other words, such kicker sigmas, in general,
 can differ from the ones at this kicked "ip".}
@@ -28,8 +28,11 @@ interaction points, in meters.}
 transverse betatron oscillation phases divided by 2pi.  The phase at
 IP=0 is zero by definition, therefore, the "x" and "y" vectors should
 start from the phase at IP=1, this is why this parameter is called
-"next" phase over 2pi. The length of "x" and "y" vectors should be
-equal to the total number of simulated IPs.}
+"next" phase over 2pi. The order of IPs = 0,1,2, ... is determined by
+the order in which the kicked bunch collides with the kickers in the
+accelerator, so, eg. it is opposite for two beams rotating in the
+opposite directions. The lengths of "x" and "y" vectors should be equal
+to the total number of simulated IPs.}
 
 \item{gaussian}{List with "x" and "y" components. Each component is in turn
 a list with two elements, "sig" and "w" specifying Gaussian sig(mas) in
@@ -37,9 +40,20 @@ um and the corresponding w(eights) of the multi-Gaussian kicked bunch
 density. All Gaussians should have a common mean at zero. The weights
 might be given not normalized.}
 
-\item{exact_phases}{If FALSE (default), small irrational numbers will be
-added to all phases to increase the randomness in the transverse
-particle trajectories and improve the simulation, see \code{Details}.}
+\item{exact_phases}{If values in \code{next_phase_over_2pi} are given with
+2 (3) digits after the comma, after 100 (1000) turns the points return
+almost to their original positions if the beam-beam effect is small (as
+100* or 1000 * phases/2pi become integer). The simulation, therefore,
+probes the same part of the phase space over and over again, and extra
+turns almost do not improve the convergence. To avoid this and to add
+extra randomness in the transverse particle trajectories, "negligible"
+irrational numbers randomly distributed in the interval
+-exp(-8.5)...+exp(-8.5) = +/-0.0001017342 are added to all phase / 2pi
+values if \code{exact_phases} is FALSE (default). This makes them
+irrational and opens otherwise closed Lissajous figures of betatron
+oscillations in X-Y plane. If this is not desired, \code{exact_phases}
+should be set to TRUE. Then all phases/2pi are used exactly as they are
+given.}
 }
 \value{
 List with all function arguments as list components. It contains
@@ -48,37 +62,18 @@ List with all function arguments as list components. It contains
     kickers, sim, quiet)} simulation function.
 }
 \description{
-Convenience function aggregating parameters of the kicked
-    bunch into the "kicked" argument of the
-    \code{\link{beam_beam}(kicked, kickers, sim, quiet)}" simulation function.
-}
-\details{
-The returned list contains all information on the kicked bunch
-    needed for the B*B simulation.
-
-If values in "next_phase_over_2pi" are given with 2-3 digits after the
-comma, after 100 or 1000 turns the points return almost to their original
-positions if the beam-beam effect is small (as 100* or 1000 * phases/2pi
-become integer). The simulation, therefore, probes the same part of the
-phase space over and over again, and extra turns almost do not improve the
-convergence. To avoid this and to add extra randomness to the simulation,
-"negligible" irrational numbers randomly distributed in the interval
--exp(-8.5)...+exp(-8.5) = +/-0.0001017342 are added by default to all phase
-/ 2pi values. This makes them irrational and opens otherwise closed
-Lissajous figures of betatron oscillations in X-Y plane. In reality the
-phases/2pi are always irrational.
-
-If this is not desired, an option "exact.phases = TRUE" can be set. Then
-all phases/2pi are used exactly as they are given.
+Convenience function aggregating kicked bunch parameters into
+    the "kicked" argument of the \code{\link{beam_beam}(kicked, kickers,
+    sim, quiet)}" simulation function.
 }
 \examples{
-kicked(momentum = 3500, Z=1, ip=1,
-       beta = list(x=c(rep(1.5,3),6),
-                   y=c(rep(1.5,3),6)), 
-       next_phase_over_2pi = list(x = 0.31*(1:4),
-                                  y = 0.32*(1:4)),
-       gaussian = list(x = list(sig=rep(40,2), w=c(0.2, 0.8)),
-                       y = list(sig=c(39.99, 40), w=c(0.3, 0.7))),
+kicked(momentum = 3500, Z = 1, ip = 1,
+       beta = list(x=c(rep(1.5,3), 6),
+                   y=c(rep(1.5,3), 6)), 
+       next_phase_over_2pi = list(x=0.31*(1:4),
+                                  y=0.32*(1:4)),
+       gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
+                       y=list(sig=c(39.99, 40), w=c(0.3, 0.7))),
        exact_phases = FALSE)
 
 
