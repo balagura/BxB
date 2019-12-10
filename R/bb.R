@@ -22,9 +22,9 @@
 
 #' @title \code{kicked} convenience function
 #' 
-#' @description Convenience function aggregating parameters of the kicked
-#'     bunch into the "kicked" argument of the
-#'     \code{\link{beam_beam}(kicked, kickers, sim, quiet)}" simulation function.
+#' @description Convenience function aggregating kicked bunch parameters into
+#'     the "kicked" argument of the \code{\link{beam_beam}(kicked, kickers,
+#'     sim, quiet)}" simulation function.
 #'
 #' @param momentum In GeV.
 #' 
@@ -32,8 +32,8 @@
 #' 
 #' @param ip Interaction point (IP) number (counting from zero) for which the
 #'     Gaussian sigmas are specified. Kicked bunch sigmas at other IP2 are
-#'     calculated via beta-function values as sigma(ip) * sqrt(beta(ip) /
-#'     beta(IP2). Note, that contrary to that, the kicker sigmas should be
+#'     calculated via beta-function as sigma(ip) * sqrt(beta(ip) /
+#'     beta(IP2)). Note, that contrary to that, the kicker sigmas should be
 #'     specified directly at the IP of the beam-beam interaction, without any
 #'     extrapolation via beta. In other words, such kicker sigmas, in general,
 #'     can differ from the ones at this kicked "ip".
@@ -46,8 +46,11 @@
 #'     transverse betatron oscillation phases divided by 2pi.  The phase at
 #'     IP=0 is zero by definition, therefore, the "x" and "y" vectors should
 #'     start from the phase at IP=1, this is why this parameter is called
-#'     "next" phase over 2pi. The length of "x" and "y" vectors should be
-#'     equal to the total number of simulated IPs.
+#'     "next" phase over 2pi. The order of IPs = 0,1,2, ... is determined by
+#'     the order in which the kicked bunch collides with the kickers in the
+#'     accelerator, so, eg. it is opposite for two beams rotating in the
+#'     opposite directions. The lengths of "x" and "y" vectors should be equal
+#'     to the total number of simulated IPs.
 #'
 #' @param gaussian List with "x" and "y" components. Each component is in turn
 #'     a list with two elements, "sig" and "w" specifying Gaussian sig(mas) in
@@ -55,27 +58,20 @@
 #'     density. All Gaussians should have a common mean at zero. The weights
 #'     might be given not normalized.
 #' 
-#' @param exact_phases If FALSE (default), small irrational numbers will be
-#'     added to all phases to increase the randomness in the transverse
-#'     particle trajectories and improve the simulation, see \code{Details}.
-#'
-#' @details The returned list contains all information on the kicked bunch
-#'     needed for the B*B simulation.
-#' 
-#' If values in "next_phase_over_2pi" are given with 2-3 digits after the
-#' comma, after 100 or 1000 turns the points return almost to their original
-#' positions if the beam-beam effect is small (as 100* or 1000 * phases/2pi
-#' become integer). The simulation, therefore, probes the same part of the
-#' phase space over and over again, and extra turns almost do not improve the
-#' convergence. To avoid this and to add extra randomness to the simulation,
-#' "negligible" irrational numbers randomly distributed in the interval
-#' -exp(-8.5)...+exp(-8.5) = +/-0.0001017342 are added by default to all phase
-#' / 2pi values. This makes them irrational and opens otherwise closed
-#' Lissajous figures of betatron oscillations in X-Y plane. In reality the
-#' phases/2pi are always irrational.
-#'
-#' If this is not desired, an option "exact.phases = TRUE" can be set. Then
-#' all phases/2pi are used exactly as they are given.
+#' @param exact_phases If values in \code{next_phase_over_2pi} are given with
+#'     2 (3) digits after the comma, after 100 (1000) turns the points return
+#'     almost to their original positions if the beam-beam effect is small (as
+#'     100* or 1000 * phases/2pi become integer). The simulation, therefore,
+#'     probes the same part of the phase space over and over again, and extra
+#'     turns almost do not improve the convergence. To avoid this and to add
+#'     extra randomness in the transverse particle trajectories, "negligible"
+#'     irrational numbers randomly distributed in the interval
+#'     -exp(-8.5)...+exp(-8.5) = +/-0.0001017342 are added to all phase / 2pi
+#'     values if \code{exact_phases} is FALSE (default). This makes them
+#'     irrational and opens otherwise closed Lissajous figures of betatron
+#'     oscillations in X-Y plane. If this is not desired, \code{exact_phases}
+#'     should be set to TRUE. Then all phases/2pi are used exactly as they are
+#'     given.
 #' 
 #' @return List with all function arguments as list components. It contains
 #'     full information on the kicked bunch required for the B*B
@@ -85,13 +81,13 @@
 #' @seealso \code{kickers}, \code{sim}, \code{beam_beam}.
 #'
 #'@examples
-#' kicked(momentum = 3500, Z=1, ip=1,
-#'        beta = list(x=c(rep(1.5,3),6),
-#'                    y=c(rep(1.5,3),6)), 
-#'        next_phase_over_2pi = list(x = 0.31*(1:4),
-#'                                   y = 0.32*(1:4)),
-#'        gaussian = list(x = list(sig=rep(40,2), w=c(0.2, 0.8)),
-#'                        y = list(sig=c(39.99, 40), w=c(0.3, 0.7))),
+#' kicked(momentum = 3500, Z = 1, ip = 1,
+#'        beta = list(x=c(rep(1.5,3), 6),
+#'                    y=c(rep(1.5,3), 6)), 
+#'        next_phase_over_2pi = list(x=0.31*(1:4),
+#'                                   y=0.32*(1:4)),
+#'        gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
+#'                        y=list(sig=c(39.99, 40), w=c(0.3, 0.7))),
 #'        exact_phases = FALSE)
 #'
 #' 
@@ -106,9 +102,9 @@ kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, gaussian, exact_p
 
 #' @title \code{kickers} convenience function
 #' 
-#' @description Convenience function aggregating parameters of the kicker
-#'     bunches into the "kickers" argument of the
-#'     \code{\link{beam_beam}(kicked, kickers, sim, quiet)}" simulation function.
+#' @description Convenience function aggregating kicker bunch parameters into
+#'     the "kickers" argument of the \code{\link{beam_beam}(kicked, kickers,
+#'     sim, quiet)}" simulation function.
 #'
 #' @param Z Charge of the particles in the units of the proton charge.
 #' 
@@ -121,9 +117,9 @@ kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, gaussian, exact_p
 #'     elements, "sig" and "w" specifying Gaussian sig(mas) in um and the
 #'     corresponding w(eights) of the multi-Gaussian kicker bunch densities at
 #'     the given IP. All Gaussians should have a common mean. The weights
-#'     might be given not normalized. For example, \preformatted{gaussian = list(x = list(list(sig = 50, w=1),
-#'                          list(sig=60, w=10)),
-#'                 y = list(list(sig = c(40,60), w=c(1,2)),
+#'     might be given not normalized. For example, \preformatted{gaussian = list(x=list(list(sig=50, w=1),
+#'                        list(sig=60, w=10)),
+#'                 y = list(list(sig=c(40,60), w=c(1,2)),
 #'                          list(sig=50, w=1)))}
 #'
 #'     specifies kicker densities for the simulation with two IPs.  Note, that
@@ -131,7 +127,7 @@ kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, gaussian, exact_p
 #'     directly at the IP of the beam-beam interaction, without any
 #'     extrapolation via beta. In other words, such kicker sigmas, in general,
 #'     can differ from the ones at the \code{ip} where the kicked sigmas are
-#'     specified
+#'     specified.
 #'
 #' 
 #' @param position List of lists. The outer has "x" and "y" components
@@ -140,9 +136,10 @@ kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, gaussian, exact_p
 #'     contains "n_ip" vectors where "n_ip" is the number of IPs. Each vector
 #'     can have either one or "n_step" kicker positions for a given IP, where
 #'     "n_step" is the number of scan points in van der Meer scan. If the
-#'     vector has only one position, it is "recycled", and the kicker position
-#'     is assumed to be constant during the scan. For example,\preformatted{position = list(x = list(10*(0:20), 500, 10*(0:20), 500),
-#'                 y = list(0,0,0,0))}
+#'     vector contains only one position, it is "recycled" and the kicker
+#'     is assumed to be immovable during the
+#' scan. For example,\preformatted{position = list(x=list(10*(0:20), 500, 10*(0:20), 500),
+#'                 y=list(0,0,0,0))}
 #' 
 #'     specifies the simultaneous scan at IP=0 and IP=2 along X with the beams
 #'     at IP=1, 3 separated by 500 um, and without Y-separations in all IPs.
@@ -159,17 +156,17 @@ kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, gaussian, exact_p
 #' @examples
 #' kickers(Z = 1,
 #'         n_particles = rep(8.5e10, 4),
-#'         gaussian = list(x = list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
-#'                                  list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
-#'                                  list(sig=c(40.002, 40.001, 40.001, 39.998),
-#'                                       w = c(2, 10, 10, 2)),
-#'                                  list(sig=80, w=1)),
-#'                         y = list(list(sig=40, w=0.2),
-#'                                  list(sig=40, w=0.2),
-#'                                  list(sig=40, w=0.2),
-#'                                  list(sig=c(80.001, 79.999), w=rep(1, 2)))),
-#'         position = list(x = list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
-#'                         y = list(0,0,0,0)))
+#'         gaussian = list(x=list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
+#'                                list(sig=rep(40, 3), w=c(0.3, 0.6, 0.1)),
+#'                                list(sig=c(40.002, 40.001, 40.001, 39.998),
+#'                                     w=c(2, 10, 10, 2)),
+#'                                list(sig=80, w=1)),
+#'                         y=list(list(sig=40, w=0.2),
+#'                                list(sig=40, w=0.2),
+#'                                list(sig=40, w=0.2),
+#'                                list(sig=c(80.001, 79.999), w=rep(1, 2)))),
+#'         position = list(x=list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
+#'                         y=list(0,0,0,0)))
 #' 
 #' @author Vladislav BALAGURA <balagura@cern.ch>
 #' @export
@@ -180,9 +177,9 @@ kickers <- function(Z, n_particles, gaussian, position) {
 
 #' @title \code{sim} convenience function
 #' 
-#' @description Convenience function aggregating parameters controlling B*B
-#'     simulation into the "sim" argument of the
-#'     \code{\link{beam_beam}(kicked, kickers, sim, quiet)}" function.
+#' @description Convenience function aggregating B*B simulation parameters
+#'     into the "sim" argument of the \code{\link{beam_beam}(kicked, kickers,
+#'     sim, quiet)}" function.
 #'
 #' @param n_points Number of "macro-particles" traced in the simulation will
 #'     be slightly less than this number (eg. by 21\% for round single Gaussian
@@ -195,10 +192,11 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #' @param kick_model One of "precise", "average" or
 #'     "precise.minus.average". If "precise" (default), the kick is calculated
 #'     according to the exact formula. "average" sets the kick to the constant
-#'     not depending on X,Y-position of the particle. This is equivalent to
-#'     the field of a dipole magnet. Its strength is chosen to reproduce the
-#'     precise overall force on the kicked bunch. "precise.minus.average" sets
-#'     the kick to the difference between the "precise" and "average" values.
+#'     value everywhere in the X,Y-plane. This is equivalent to the field of a
+#'     dipole magnet. Its strength is chosen to reproduce the precise overall
+#'     force on the kicked bunch which depends on the distance between
+#'     the colliding bunches. "precise.minus.average" sets the kick to the
+#'     difference between the "precise" and "average" values.
 #'
 #' @param n_sigma_cut Controls the limits of 4D phase space volume from which
 #'     the macro-particles are selected. See \code{Initial distribution of
@@ -214,26 +212,25 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'     \code{Interpolation}.
 #' 
 #' @param n_random_points_to_check_interpolation If this parameter is larger
-#'     than zero and \code{quiet} parameter in \code{\link{beam_beam}}
-#'     simulation function is not \code{TRUE}, the quality of the
-#'     interpolations will be estimated by comparing the mismatches between
-#'     the exact and the interpolated values at
-#'     \code{n_random_points_to_check_interpolation} points randomly
-#'     distributed inside the interpolation grid. The results will be printed
-#'     to \code{cout}.
+#'     than zero, the quality of the interpolations (if any) will be estimated
+#'     by comparing the mismatches between the exact and the interpolated
+#'     values at \code{n_random_points_to_check_interpolation} points randomly
+#'     distributed inside the interpolation grid. The results will be reported
+#'     in a file \code{output_dir}/interpolation_precision.txt.
 #' 
 #' @param select_one_turn_out_of If \code{output} option \code{points} is
 #'     specified, all macro-particle positions will be stored to disk. Storage
 #'     per accelerator turn might require too much space. Instead, one can
-#'     \code{select_one_turn_out_of} N turns.  Eg. if this parameter is set to
+#'     \code{select_one_turn_out_of} N turns. Eg. if this parameter is set to
 #'     1000, only the positions before the turns = 999, 1999, 2999, ...
-#'     (counting from zero) will be stored. If \code{points} option is not
-#'     requested in \code{output}, \code{select_one_turn_out_of} has no
-#'     effect.
+#'     (counting from zero) will be stored. Zero or negative values of
+#'     \code{select_one_turn_out_of} are substituted by one. If \code{points}
+#'     option is not requested in \code{output}, \code{select_one_turn_out_of}
+#'     has no effect.
 #'
 #' @param seed Random seed for the simulation. If specified, the results of
 #'     the simulation will be fully reproducible. Otherwise, the current time
-#'     will be used as a seed, and the results will be not reproducible.
+#'     will be used as a seed leading to not reproducible results.
 #'
 #' 
 #' @param output_dir The name of the subdirectory (relative to the current
@@ -247,38 +244,45 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'     \code{output_dir} is not empty (""), for every option \code{XXXX.XXXX},
 #'     one compressed file will be created under the name
 #'     \code{output_dir/XXXX_XXXX.txt.gz}. \code{output} might include any
-#'     combination of \code{integrals.per.turn}, \code{avr.xy.per.turn},
-#'     \code{integrals.per.particle}, \code{avr.xy.per.particle},
-#'     \code{points} or be empty.
+#'     combination of \code{integrals_per_turn}, \code{avr_xy_per_turn},
+#'     \code{integrals_per_particle}, \code{avr_xy_per_particle},
+#'     \code{points} or be empty, see \code{\link{Output}}.
 #' 
 #' @section Initial distribution of macro-particles:
 #' The traced macro-particles of the "kicked" bunch are selected in the
 #' following way.
 #'
-#' It is assumed that the bunch densities factorize in X and Y. Their
-#' projections to X and Y are multi-Gaussian distributions with common
-#' centers. Because of the circular motion in X-X' and Y-Y' planes (where
-#' X',Y' denote the angular coordinates scaled by the accelerator
-#' beta-function, eg. X' = dX/dZ * beta), the projections to X' (Y') are
-#' identical to X (Y). So, eg. a single Gaussian in X makes a two-dimensional
-#' Gaussian with equal sigmas in X-X' plane, and a multi-Gaussian makes a
-#' multi two-dimensional Gaussian with the same weights.
+#' It is assumed that the initial bunch densities unperturbed by beam-beam
+#' factorize in X and Y and their X,Y-projections are multi-Gaussian
+#' distributions with common centers. Because of the circular motion in X-X'
+#' and Y-Y' planes (where X',Y' denote the angular coordinates scaled by the
+#' accelerator beta-function, eg. X' = dX/dZ * beta), the projections to X'
+#' (Y') are identical to X (Y). So, eg. a single Gaussian in X makes a
+#' two-dimensional Gaussian with equal sigmas in X-X' plane, and a
+#' multi-Gaussian makes a multi two-dimensional Gaussian with the same
+#' weights.
 #'
 #' The four-dimensional kicked bunch density is sampled internally in a
-#' two-dimensional rX-rY grid of the radii in the X-X', Y-Y' planes at IP=0.
-#'
-#' Each grid side (rX or rY) extends from 0 to a maximal radius rX,Y_max. The
-#' latter is chosen such that the circle with the radius rX_max (or rY_max)
-#' contains the same fraction of a multi two-dimensional Gaussian as that of a
-#' single two-dimensional Gaussian inside the circle with the radius
-#' \code{n_sigma_cut}.
-#'
-#' The number of grid lines in rX and rY are chosen to be the same and equal to
-#' int(sqrt(\code{n_points})). Finally, only rX-rY points inside the ellipse
-#' inscribed to the rectangle (rX_max X rY_max) are used for the
-#' simulation. For every selected rX-rY pair, one point at the X-X', Y-Y'
-#' circles with these radii and random phases is traced in the accelerator.
-#'
+#' two-dimensional rX-rY grid of the radii in the X-X', Y-Y' planes at the
+#' interaction point IP = 0.  Each grid side (rX or rY) extends from 0 to a
+#' maximal radius rX,Y_max. The latter is chosen such that the circle with the
+#' radius rX_max (or rY_max) contains the same fraction of a multi
+#' two-dimensional Gaussian as that of a single two-dimensional Gaussian
+#' inside the circle with the radius \code{n_sigma_cut} (5 by default). The
+#' grid sides [0...rX_max] and [0...rY_max] are divided into
+#' int(sqrt(\code{n_points})) intervals and the grid lines are drawn through
+#' their centers. Finally, only rX-rY points inside the ellipse inscribed to
+#' the rectangle [0...rX_max] X [0...rY_max] are used for the simulation. The
+#' number of selected points is, therefore, less than \code{n_points}. For
+#' every rX-rY pair selected in this way, one four-dimensional point at the
+#' X-X', Y-Y' circles with these radii and random phases is chosen as the
+#' initial position of one macro-particle. Its weight is chosen such that the
+#' ensemble of all macro-particles represents the initial bunch density. The
+#' macro-particles are then traced individually in the accelerator in separate
+#' threads. This allows to achieve significant speed-up of the simulation in
+#' the computers with multi-core processors, the gain is almost proportional
+#' to the number of cores.
+#' 
 #' @section Four phases in the simulation:
 #' First phase is without beam-beam. It allows to calculate numerically the
 #' undisturbed overlap integral, compare it with the exact analytic formula and
@@ -340,26 +344,25 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #' are reused to save memory.
 #'
 #' The accuracy of the interpolation is estimated if the parameter
-#' \code{n_random_points_to_check_interpolation} is specified. This is
+#' \code{n_random_points_to_check_interpolation} is larger than zero. This is
 #' performed by measuring the maximal and average absolute mismatches between
 #' the interpolated and the exact values at
 #' \code{n_random_points_to_check_interpolation} distributed inside the
 #' interpolation grid. The mismatches are then normalized to the maximal
-#' absolute exact value and printed out.
+#' absolute exact value and printed to the file
+#' \code{output_dir}/interpolation_precision.txt.
 #'
 #' If the interpolation was switched off by setting one or both
 #' \code{density_and_field_interpolators_n_cells_along_grid_side} values to
 #' zero, the corresponding \code{n_random_points_to_check_interpolation} has
 #' no effect. The check is not performed either if
-#' \code{n_random_points_to_check_interpolation} is set to zero.
+#' \code{n_random_points_to_check_interpolation} is zero or negative.
 #'
 #' @section Kick model:
 #' For debugging purposes one can redefine the kick formula by setting
-#' "kick.model" parameter to one of the following:
-#' \preformatted{
-#'      precise
-#'      precise.minus.average
+#' "kick.model" parameter to one of the following:\preformatted{     precise
 #'      average
+#'      precise.minus.average
 #' }
 #' \code{precise} is the default. In this case the exact kick formula is used.
 #'
@@ -377,66 +380,77 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #' luminosity correction with the sum of the corrections obtained with
 #' "precise.minus.average" and "average".
 #'
-#' @section Output: \code{output} parameter controls what should be calculated
-#'     and printed after the simulation. It is a white-space separated list of
-#'     options listed below:
+#' @section Output:
+#' \code{output} parameter controls what should be calculated and printed
+#' after the simulation. It is a white-space separated list of options. If
+#' \code{output_dir} is not empty (""), for every option \code{XXXX} one
+#' compressed file will be created under the name
+#' \code{output_dir}/XXXX.txt.gz. The possible options are listed below:
 #'
-#'   \code{integrals.per.turn} - overlap integrals per turn (averaged over
-#'                        particles). Format: step ip ip.kicker.x ip.kicker.y
-#'                        i.turn integral.
+#' \code{integrals_per_turn} - overlap integrals averaged over particles, per
+#'   turn.
+#' \deqn{Format: step ip ip_kicker_x ip_kicker_y i_turn integral.}
 #'
-#'   \code{avr.xy.per.turn} - average kicked bunch center per turn (averaged
-#'                     over particles). Format: step ip i.turn average.x
-#'                     average.y.
+#' \code{avr_xy_per_turn} - kicked bunch center averaged over particles, per
+#'   turn.
+#' \deqn{Format: step ip i_turn average_x average_y.}
 #'
-#'   \code{integrals.per.particle} - overlap integrals per particle, per phase
-#'                            (averaged over turns in the given phase),
-#'                            assuming that the kicked bunch is squashed to
-#'                            this particle, ie. the bunch density is a
-#'                            delta-function at its position. Format: step ip
-#'                            phase i.particle integral.
+#' \code{integrals_per_particle} - overlap integrals averaged over turns, per
+#'   particle, per phase, assuming that the kicked bunch is squashed to this
+#'   particle, ie. the bunch density is a delta-function at its position.
+#' \deqn{Format: step ip phase i_particle integral.}
 #'
-#'   \code{avr.xy.per.particle} -   average kicked bunch center per particle, per phase
-#'                           as above. Format: step ip phase i.particle avr.x avr.y.
+#' \code{avr_xy_per_particle} - kicked bunch center averaged over turns, per
+#'   particle, per phase as above.
+#' \deqn{Format: step ip phase i_particle average_x average_y.}
 #'
-#'   \code{points} -  the traced positions of the kicked bunch particles before
-#'             accelerator "i.turn", note, the generated file might be very long.
-#'             Format: step ip i.turn i.particle X X' Y Y'.
+#' \code{points} -  the traced positions of the kicked bunch particles before
+#'   accelerator "i_turn", note, the generated file might be very long.
+#' \deqn{Format: step ip i_turn i_particle X X' Y Y'.}
 #'
-#' The integers i.turn and i.particle are counted from zero.
+#' The integers i_turn and i_particle are counted from zero.
 #'
-#' If \code{output_dir} is not empty (""), for every option \code{XXXX.XXXX},
-#' one compressed file will be created under the name
-#' \code{output_dir/XXXX_XXXX.txt.gz}. In addition, the files
-#' \code{output_dir/rx.ry.weights}, \code{output_dir/kicker_positions.txt} and
-#' \code{output_dir/summary.txt} are printed out regardless of options in
+#' In addition, the files \code{output_dir}/rx_ry_weights.txt.gz,
+#' \code{output_dir}/kicker_positions.txt,
+#' \code{output_dir}/interpolation_precision.txt and
+#' \code{output_dir}/summary.txt are printed out regardless of options in
 #' \code{output} with the following content:
 #'
-#' \code{output_dir/rx.ry.weights} - for every simulated particle: its initial
-#'                   rX and rY radii (in X,X' and Y,Y' phase spaces) at ip and
-#'                   its "weight". Format: i.particle ip rx ry weight.
+#' \code{output_dir}/rx_ry_weights.txt.gz - for every simulated particle: its
+#'             initial rX and rY radii (in X,X' and Y,Y' phase spaces) at ip
+#'             and its "weight".
+#' \deqn{Format: i_particle ip rx ry weight.}
 #'
-#' \code{output_dir/kicker_positions.txt} - coordinates of the kicker bunch
+#' \code{output_dir}/kicker_positions.txt - coordinates of the kicker bunch
 #'     centers with respect to the nominal (not perturbed by the
-#'     beam-beam effect) kicked bunch center. Format: step ip x y.
+#'     beam-beam effect) kicked bunch center.
+#' \deqn{Format: step ip x y.}
 #'
-#'  \code{output_dir/summary.txt} - the main results of the simulation
+#' \code{output_dir}/interpolation_precision.txt - was explained in
+#' \code{\link{Interpolation}}.
+#' 
+#'  \code{output_dir}/summary.txt - the main results of the simulation
 #'     including the overlap integrals and the corresponding beam-beam
 #'     corrections. Format: \preformatted{<step> <IP> <beam-beam/no beam-beam luminosity correction>
 #' no beam-beam: <analytic> overlap, <numeric/analytic ratio> and <its error>
-#' no beam-beam:    <X>, <Y> numeric center-of-mass shift
-#' beam-beam shift: <X>, <Y> analytic, <X>, <Y> numeric}
-#'
+#' no beam-beam: <X>, <Y> numeric center-of-mass shift
+#'    beam-beam: <X>, <Y> analytic, <X>, <Y> numeric shift}
+#' 
 #' No beam-beam numeric/analytic error is roughly estimated from turn-by-turn
-#' variations, available only if \code{integrals.per.turn} option is set in
+#' variations, available only if \code{integrals_per_turn} option is set in
 #' \code{output}. Otherwise this error is set to \code{nan}. Similarly,
-#' numeric <X>, <Y> shifts are calculated only if \code{avr.xy.per.particle}
+#' numeric <X>, <Y> shifts are calculated only if \code{avr_xy_per_particle}
 #' option is chosen, and set to \code{nan} otherwise. Without beam-beam these
 #' shifts should be close to zero.
 #'
-#' If, minimally, only this summary is required from the simulation, it is
-#' better to set \code{output} to am empty string (""). In this case the
-#' simulation will run faster, as every option requires extra CPU time.
+#' The same summary data are returned by \code{beam_beam} function in the form
+#' of a data.frame. If only the minimal information on the luminosity
+#' correction is required from the simulation, it is better to set
+#' \code{output} to an empty string ("") or to \code{integrals_per_particle},
+#' as any other option in \code{output} requires extra CPU time. The integrals
+#' per particle are calculated in any case (but the file
+#' \code{output_dir}/integrals_per_particle.txt.gz is printed only if the
+#' corresponding option is explicitly set in \code{output}).
 #' 
 #' @return List with all function arguments as list components. The list can
 #'     be fed to \code{\link{beam_beam}(kicked, kickers, sim, quiet)}
@@ -467,7 +481,7 @@ sim <- function(n_points = 5000, n_turns = c(1000, 1000, 0, 5000),
                 select_one_turn_out_of = 1000,
                 seed = 123456789,
                 output_dir = "tmp",
-                output = "integrals.per.turn avr.xy.per.turn integrals.per.particle avr.xy.per.particle points") {
+                output = "integrals_per_turn avr_xy_per_turn integrals_per_particle avr_xy_per_particle points") {
     list(n_points = n_points,
          n_turns = n_turns,
          kick_model = kick_model,
