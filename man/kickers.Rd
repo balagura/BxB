@@ -55,9 +55,6 @@ Convenience function aggregating kicker bunch parameters into
     the "kickers" argument of the \code{\link{beam_beam}(kicked, kickers,
     sim, quiet)}" simulation function.
 }
-\details{
-
-}
 \examples{
 kickers(Z = 1,
         n_particles = rep(8.5e10, 4),

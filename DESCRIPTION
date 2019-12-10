@@ -1,7 +1,7 @@
 Package: BxB
 Title: Beam-beam simulation for vdM scans at LHC
-Version: 0.900
-Date: 2019-12-01
+Version: 2.0
+Date: 2019-12-10
 Authors@R: person("Vladislav", "BALAGURA", email = "balagura@cern.ch", role = c("aut", "cre"))
 Description: Beam-beam simulation for vdM scans at LHC.
 License: GPL (>= 3) | file LICENSE
