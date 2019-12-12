@@ -95,7 +95,7 @@ void gaussian(SEXP rg, vector<Gaussian>& g) {
 //' # single Gaussian round bunch case which was simulated in 2012 using the
 //' # LHC MAD-X code. This is done for easy comparison with this reference case.
 //' # Though sigmas are different, they are all close to 40 um except at the
-//' # last IP where they are about twice larger (80 um). The beam separations
+//' # last IP where they are about twice larger (80 um). The beam separations there
 //' # are also twice larger. This is compensated by 4 times larger kicked beta
 //' # (6 instead of 1.5 m at other IPs). This is done to illustrate that overall
 //' # this should give the same results. Indeed, at IP (where the derivative
