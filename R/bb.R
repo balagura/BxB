@@ -52,12 +52,6 @@
 #'     opposite directions. The lengths of "x" and "y" vectors should be equal
 #'     to the total number of simulated IPs.
 #'
-#' @param gaussian List with "x" and "y" components. Each component is in turn
-#'     a list with two elements, "sig" and "w" specifying Gaussian sig(mas) in
-#'     um and the corresponding w(eights) of the multi-Gaussian kicked bunch
-#'     density. All Gaussians should have a common mean at zero. The weights
-#'     might be given not normalized.
-#' 
 #' @param exact_phases If values in \code{next_phase_over_2pi} are given with
 #'     2 (3) digits after the comma, after 100 (1000) turns the points return
 #'     almost to their original positions if the beam-beam effect is small (as
@@ -73,6 +67,12 @@
 #'     should be set to TRUE. Then all phases/2pi are used exactly as they are
 #'     given.
 #' 
+#' @param gaussian List with "x" and "y" components. Each component is in turn
+#'     a list with two elements, "sig" and "w" specifying Gaussian sig(mas) in
+#'     um and the corresponding w(eights) of the multi-Gaussian kicked bunch
+#'     density. All Gaussians should have a common mean at zero. The weights
+#'     might be given not normalized.
+#' 
 #' @return List with all function arguments as list components. It contains
 #'     full information on the kicked bunch required for the B*B
 #'     simulation. The list can be fed to \code{\link{beam_beam}(kicked,
@@ -86,18 +86,18 @@
 #'                    y=c(rep(1.5,3), 6)), 
 #'        next_phase_over_2pi = list(x=0.31*(1:4),
 #'                                   y=0.32*(1:4)),
+#'        exact_phases = FALSE,
 #'        gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
-#'                        y=list(sig=c(39.99, 40), w=c(0.3, 0.7))),
-#'        exact_phases = FALSE)
+#'                        y=list(sig=c(39.99, 40), w=c(0.3, 0.7))))
 #'
 #' 
 #' @author Vladislav BALAGURA <balagura@cern.ch>
 #' @export
 # [[Rcpp::export]]
-kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, gaussian, exact_phases = FALSE) {
+kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, exact_phases = FALSE, gaussian) {
     list(momentum = momentum, Z = Z, ip = ip,
          beta = beta, next_phase_over_2pi = next_phase_over_2pi,
-         gaussian = gaussian, exact_phases = exact_phases)
+         exact_phases = exact_phases, gaussian = gaussian)
 }
 
 #' @title \code{kickers} convenience function

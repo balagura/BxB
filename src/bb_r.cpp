@@ -153,9 +153,9 @@ void gaussian(SEXP rg, vector<Gaussian>& g) {
 //'                                       y=c(rep(1.5,3), 6)), 
 //'                           next_phase_over_2pi = list(x=0.31*(1:4),
 //'                                                      y=0.32*(1:4)),
+//'                           exact_phases = FALSE,
 //'                           gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
-//'                                           y=list(sig=c(39.99, 40), w=c(0.3, 0.7))),
-//'                           exact_phases = FALSE),
+//'                                           y=list(sig=c(39.99, 40), w=c(0.3, 0.7))))
 //'           kickers =  kickers(Z = 1,
 //'                              n_particles = rep(8.5e10, 4),
 //'                              gaussian = list(x=list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
