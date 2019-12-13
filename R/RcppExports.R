@@ -119,7 +119,7 @@ NULL
 #'                                                      y=0.32*(1:4)),
 #'                           exact_phases = FALSE,
 #'                           gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
-#'                                           y=list(sig=c(39.99, 40), w=c(0.3, 0.7))))
+#'                                           y=list(sig=c(39.99, 40), w=c(0.3, 0.7)))),
 #'           kickers =  kickers(Z = 1,
 #'                              n_particles = rep(8.5e10, 4),
 #'                              gaussian = list(x=list(list(sig=rep(40, 2), w=c(0.2, 0.8)),
@@ -134,7 +134,7 @@ NULL
 #'                              position = list(x=list(10*(0:20), 10*(0:20), 10*(0:20), 10*(0:20)),
 #'                                              y=list(0,0,0,0))),
 #'           sim =  sim(n_points = 5000,
-#'                      ns = c(1000, 1000, 0, 5000),
+#'                      n_turns = c(1000, 1000, 0, 5000),
 #'                      kick_model = 'precise',
 #'                      n_sigma_cut = 5,
 #'                      density_and_field_interpolators_n_cells_along_grid_side = c(500, 500),
@@ -142,7 +142,7 @@ NULL
 #'                      select_one_turn_out_of = 1000,
 #'                      seed = 123456789,
 #'                      output_dir = "",
-#'                      output = "")
+#'                      output = ""))
 #'
 #' @export
 beam_beam <- function(kicked, kickers, sim, quiet = FALSE) {
