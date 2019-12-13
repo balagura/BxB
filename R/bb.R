@@ -461,7 +461,7 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'
 #' @examples
 #' sim(n_points = 5000,
-#'     ns = c(1000, 1000, 0, 5000),
+#'     n_turns = c(1000, 1000, 0, 5000),
 #'     kick_model = 'precise',
 #'     n_sigma_cut = 5,
 #'     density_and_field_interpolators_n_cells_along_grid_side = c(500, 500),
