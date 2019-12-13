@@ -4,8 +4,8 @@
 \alias{kicked}
 \title{\code{kicked} convenience function}
 \usage{
-kicked(momentum, Z, ip, beta, next_phase_over_2pi, gaussian,
-  exact_phases = FALSE)
+kicked(momentum, Z, ip, beta, next_phase_over_2pi, exact_phases = FALSE,
+  gaussian)
 }
 \arguments{
 \item{momentum}{In GeV.}
@@ -34,12 +34,6 @@ accelerator, so, eg. it is opposite for two beams rotating in the
 opposite directions. The lengths of "x" and "y" vectors should be equal
 to the total number of simulated IPs.}
 
-\item{gaussian}{List with "x" and "y" components. Each component is in turn
-a list with two elements, "sig" and "w" specifying Gaussian sig(mas) in
-um and the corresponding w(eights) of the multi-Gaussian kicked bunch
-density. All Gaussians should have a common mean at zero. The weights
-might be given not normalized.}
-
 \item{exact_phases}{If values in \code{next_phase_over_2pi} are given with
 2 (3) digits after the comma, after 100 (1000) turns the points return
 almost to their original positions if the beam-beam effect is small (as
@@ -54,6 +48,12 @@ irrational and opens otherwise closed Lissajous figures of betatron
 oscillations in X-Y plane. If this is not desired, \code{exact_phases}
 should be set to TRUE. Then all phases/2pi are used exactly as they are
 given.}
+
+\item{gaussian}{List with "x" and "y" components. Each component is in turn
+a list with two elements, "sig" and "w" specifying Gaussian sig(mas) in
+um and the corresponding w(eights) of the multi-Gaussian kicked bunch
+density. All Gaussians should have a common mean at zero. The weights
+might be given not normalized.}
 }
 \value{
 List with all function arguments as list components. It contains
@@ -72,9 +72,9 @@ kicked(momentum = 3500, Z = 1, ip = 1,
                    y=c(rep(1.5,3), 6)), 
        next_phase_over_2pi = list(x=0.31*(1:4),
                                   y=0.32*(1:4)),
+       exact_phases = FALSE,
        gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
-                       y=list(sig=c(39.99, 40), w=c(0.3, 0.7))),
-       exact_phases = FALSE)
+                       y=list(sig=c(39.99, 40), w=c(0.3, 0.7))))
 
 
 }
