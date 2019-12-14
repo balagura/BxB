@@ -144,8 +144,8 @@ void gaussian(SEXP rg, vector<Gaussian>& g) {
 //' #  ie. reversed 64.31 - (0, 8.272802, 31.984398, 55.799012)
 //' #  or  reversed 59.32 - (0, 7.957720, 29.761319, 51.715754):
 //' #
-//' # kicked.x.next.phase.over.2pi = 8.510988 32.325602 56.037198 64.310000
-//' # kicked.y.next.phase.over.2pi = 7.604246 29.558681 51.362280 59.320000
+//' # kicked.next_phase_over_2pi.x = 8.510988 32.325602 56.037198 64.310000
+//' # kicked.next_phase_over_2pi.y = 7.604246 29.558681 51.362280 59.320000
 //' #
 //'
 //' beam_beam(kicked = kicked(momentum = 3500, Z = 1, ip = 1,

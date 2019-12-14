@@ -25,14 +25,15 @@ the corresponding beta-function values (beta-star) at all simulated
 interaction points, in meters.}
 
 \item{next_phase_over_2pi}{List with "x" and "y" components specifying
-transverse betatron oscillation phases divided by 2pi.  The phase at
+transverse betatron oscillation phases divided by 2pi. The phase at
 IP=0 is zero by definition, therefore, the "x" and "y" vectors should
 start from the phase at IP=1, this is why this parameter is called
 "next" phase over 2pi. The order of IPs = 0,1,2, ... is determined by
 the order in which the kicked bunch collides with the kickers in the
 accelerator, so, eg. it is opposite for two beams rotating in the
 opposite directions. The lengths of "x" and "y" vectors should be equal
-to the total number of simulated IPs.}
+to the total number of simulated IPs. The last value in the array is
+the tune.}
 
 \item{exact_phases}{If values in \code{next_phase_over_2pi} are given with
 2 (3) digits after the comma, after 100 (1000) turns the points return
