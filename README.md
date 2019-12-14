@@ -46,5 +46,5 @@ Then, install `BxB`:
 devtools::install_github('balagura/BxB')
 ```
 ## Other ways to run `BxB`
-One can also call `BxB` from python, as a C++ function or as a standalone C++ program with the input 
+One can also call `BxB` from python, as a C or C++ function, or as a standalone C++ program with the input 
 parameters specified in the configuration file. This is described in https://github.com/balagura/beam-beam-simulation-for-vdM-scans-at-LHC. The underlying `BxB` C++ code is always the same.
