@@ -189,12 +189,12 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'     simulation phases.
 #' 
 #' @param kick_model One of "precise", "average" or
-#'     "precise.minus.average". If "precise" (default), the kick is calculated
+#'     "precise_minus_average". If "precise" (default), the kick is calculated
 #'     according to the exact formula. "average" sets the kick to the constant
 #'     value everywhere in the X,Y-plane. This is equivalent to the field of a
 #'     dipole magnet. Its strength is chosen to reproduce the precise overall
 #'     force on the kicked bunch which depends on the distance between
-#'     the colliding bunches. "precise.minus.average" sets the kick to the
+#'     the colliding bunches. "precise_minus_average" sets the kick to the
 #'     difference between the "precise" and "average" values.
 #'
 #' @param n_sigma_cut Controls the limits of 4D phase space volume from which
@@ -361,7 +361,7 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #' For debugging purposes one can redefine the kick formula by setting
 #' "kick.model" parameter to one of the following:\preformatted{     precise
 #'      average
-#'      precise.minus.average
+#'      precise_minus_average
 #' }
 #' \code{precise} is the default. In this case the exact kick formula is used.
 #'
@@ -374,10 +374,10 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #' but does not modify its shape, so the resulting luminosity change can be
 #' computed using analytic formula.
 #'
-#' \code{precise.minus.average} kick is simply calculated as the difference
+#' \code{precise_minus_average} kick is simply calculated as the difference
 #' "precise" - "average". This model allows to compare the "precise" beam-beam
 #' luminosity correction with the sum of the corrections obtained with
-#' "precise.minus.average" and "average".
+#' "precise_minus_average" and "average".
 #'
 #' @section Output:
 #' \code{output} parameter controls what should be calculated and printed
