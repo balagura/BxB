@@ -148,7 +148,7 @@ void gaussian(SEXP rg, vector<Gaussian>& g) {
 //' # kicked.next_phase_over_2pi.y = 7.604246 29.558681 51.362280 59.320000
 //' #
 //'
-//' beam_beam(kicked = kicked(momentum = 3500, Z = 1, ip = 1,
+//' beam_beam(kicked = kicked(momentum = 3500, Z = 1, ip = 0,
 //'                           beta = list(x=c(rep(1.5,3), 6),
 //'                                       y=c(rep(1.5,3), 6)), 
 //'                           next_phase_over_2pi = list(x=0.31*(1:4),
