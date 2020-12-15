@@ -67,7 +67,24 @@
 #'     oscillations in X-Y plane. If this is not desired, \code{exact_phases}
 #'     should be set to TRUE. Then all phases/2pi are used exactly as they are
 #'     given.
-#' 
+#'
+#' @param sigma_z_projection List with "x" and "y" components. Each specifies
+#'     a vector of the longitudinal bunch sigma projections to "x" or "y"
+#'     (perpendicular to the kicker beam), respectively, at all simulated
+#'     interaction points, in microns. If the beam crossing angle is zero at
+#'     the given point, the projections vanish. Otherwise eg. "x"-projection
+#'     is equal to alpha * sigmaZ * cos(beta_x), where alpha is the crossing
+#'     angle between the kicker and the vector difference v1 - v2, where v1,v2
+#'     are the beam velocities, and beta_x is the angle between x and the
+#'     projection of the crossing plane to the x-y plane. Note, these
+#'     contributions of the longitudinal spread to the transverse widths are
+#'     important only for calculating luminosities and do not affect the
+#'     transverse dynamics of the particles. For example, if the luminosity at
+#'     some point ip is not needed, sigma_z_projection$x[ip],
+#'     sigma_z_projection$y[ip] can be set arbitrarily, eg. to zeros. The
+#'     default value is NULL, this is equivalent to zero crossing angles at
+#'     all points.
+
 #' @param gaussian List with "x" and "y" components. Each component is in turn
 #'     a list with two elements, "sig" and "w" specifying Gaussian sig(mas) in
 #'     um and the corresponding w(eights) of the multi-Gaussian kicked bunch
@@ -88,6 +105,7 @@
 #'        next_phase_over_2pi = list(x=0.31*(1:4),
 #'                                   y=0.32*(1:4)),
 #'        exact_phases = FALSE,
+#'        sig_z_projection = 0,
 #'        gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
 #'                        y=list(sig=c(39.99, 40), w=c(0.3, 0.7))))
 #'
@@ -95,10 +113,16 @@
 #' @author Vladislav BALAGURA <balagura@cern.ch>
 #' @export
 # [[Rcpp::export]]
-kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi, exact_phases = FALSE, gaussian) {
+kicked <- function(momentum, Z, ip, beta, next_phase_over_2pi,
+                   exact_phases = FALSE, sigma_z_projection = NULL,
+                   gaussian) {
+    if (is.null(sigma_z_projection)) 
+        sigma_z_projection = list(x = rep(0, length(beta$x)),
+                                  y = rep(0, length(beta$y)))
     list(momentum = momentum, Z = Z, ip = ip,
          beta = beta, next_phase_over_2pi = next_phase_over_2pi,
-         exact_phases = exact_phases, gaussian = gaussian)
+         exact_phases = exact_phases, sigma_z_projection = sigma_z_projection,
+         gaussian = gaussian)
 }
 
 #' @title \code{kickers} convenience function
