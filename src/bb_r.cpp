@@ -191,6 +191,7 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
     const char* xy = xy_str[coor].c_str();
     k.beta               [coor] = as<vector<double> >(as<List>(kicked["beta"])[xy]);
     k.next_phase_over_2pi[coor] = as<vector<double> >(as<List>(kicked["next_phase_over_2pi"])[xy]);
+    k.sig_z_projection   [coor] = as<vector<double> >(as<List>(kicked["sigma_z_projection"])[xy]);
     gaussian(as<List>(kicked["gaussian"])[xy], k.gaussian[coor]);
   }
   k.exact_phases = as<bool>(kicked["exact_phases"]);
