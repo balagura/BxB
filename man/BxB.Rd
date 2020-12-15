@@ -3,7 +3,6 @@
 \docType{package}
 \name{BxB}
 \alias{BxB}
-\alias{BxB-package}
 \title{B*B, beam-beam simulation for vdM scans at LHC}
 \description{
 "beam_beam" function simulates bunch particles in an
