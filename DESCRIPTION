@@ -11,6 +11,6 @@ LazyData: true
 LinkingTo: Rcpp
 Imports: Rcpp (>= 1.0.2)
 SystemRequirements: C++17
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 URL: http://github.com/balagura/BxB
 BugReports: http://github.com/balagura/BxB/issues
