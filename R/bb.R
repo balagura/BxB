@@ -105,7 +105,7 @@
 #'        next_phase_over_2pi = list(x=0.31*(1:4),
 #'                                   y=0.32*(1:4)),
 #'        exact_phases = FALSE,
-#'        sig_z_projection = 0,
+#'        sig_z_projection = NULL,
 #'        gaussian = list(x=list(sig=rep(40,2), w=c(0.2, 0.8)),
 #'                        y=list(sig=c(39.99, 40), w=c(0.3, 0.7))))
 #'
