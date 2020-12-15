@@ -4,13 +4,19 @@
 \alias{sim}
 \title{\code{sim} convenience function}
 \usage{
-sim(n_points = 5000, n_turns = c(1000, 1000, 0, 5000),
-  kick_model = "precise", n_sigma_cut = 5,
+sim(
+  n_points = 5000,
+  n_turns = c(1000, 1000, 0, 5000),
+  kick_model = "precise",
+  n_sigma_cut = 5,
   density_and_field_interpolators_n_cells_along_grid_side = c(500, 500),
   n_random_points_to_check_interpolation = 10000,
-  select_one_turn_out_of = 1000, seed = as.integer(Sys.time()),
+  select_one_turn_out_of = 1000,
+  seed = as.integer(Sys.time()),
   output_dir = "tmp",
-  output = "integrals_per_turn avr_xy_per_turn integrals_per_particle avr_xy_per_particle points")
+ 
+    output = "integrals_per_turn avr_xy_per_turn integrals_per_particle avr_xy_per_particle points"
+)
 }
 \arguments{
 \item{n_points}{Number of "macro-particles" traced in the simulation will
