@@ -11,7 +11,6 @@
 #'              to the bunches overlap integral. See "?beam_beam" for details.
 #'
 #' @docType package
-#' @name BxB
 #' @author Vladislav BALAGURA <balagura@cern.ch>
 #'
 #' @import Rcpp
