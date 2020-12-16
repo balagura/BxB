@@ -254,13 +254,16 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #' @param seed Random seed for the simulation. If specified, the results of
 #'     the simulation will be fully reproducible. Otherwise, the current time
 #'     will be used as a seed leading to not reproducible results.
-#'
+#' 
+#' @param n_threads Number of parallel threads to use. If zero (default) or
+#'     negative, it is determined by the internal C++ call
+#'     thread::hardware_concurrency(), which usually reports the maximal
+#'     number allowed by the computer hardware.
 #' 
 #' @param output_dir The name of the subdirectory (relative to the current
 #'     path or absolute) where all simulated files will be stored. This
 #'     subdirectory is created by the program and should not exist, otherwise
 #'     the program will terminate without overwriting anything.
-#'
 #'
 #' @param output A character string with white-space separated options
 #'     controlling what will be calculated during the simulation. If
@@ -493,6 +496,7 @@ kickers <- function(Z, n_particles, gaussian, position) {
 #'     n_random_points_to_check_interpolation = 10000,
 #'     select_one_turn_out_of = 1000,
 #'     seed = 123456789,
+#'     n_threads = 0,
 #'     output_dir = "",
 #'     output = "")
 #' 
@@ -506,6 +510,7 @@ sim <- function(n_points = 5000, n_turns = c(1000, 1000, 0, 5000),
                 n_random_points_to_check_interpolation = 10000,
                 select_one_turn_out_of = 1000,
                 seed = as.integer(Sys.time()),
+                n_threads = 0,
                 output_dir = "tmp",
                 output = "integrals_per_turn avr_xy_per_turn integrals_per_particle avr_xy_per_particle points") {
     list(n_points = n_points,
@@ -517,6 +522,7 @@ sim <- function(n_points = 5000, n_turns = c(1000, 1000, 0, 5000),
          n_random_points_to_check_interpolation = n_random_points_to_check_interpolation,
          select_one_turn_out_of = select_one_turn_out_of,
          seed = seed,
+         n_threads = n_threads,
          output_dir = output_dir,
          output = output)
 }

@@ -13,6 +13,7 @@ sim(
   n_random_points_to_check_interpolation = 10000,
   select_one_turn_out_of = 1000,
   seed = as.integer(Sys.time()),
+  n_threads = 0,
   output_dir = "tmp",
  
     output = "integrals_per_turn avr_xy_per_turn integrals_per_particle avr_xy_per_particle points"
@@ -69,6 +70,11 @@ has no effect.}
 \item{seed}{Random seed for the simulation. If specified, the results of
 the simulation will be fully reproducible. Otherwise, the current time
 will be used as a seed leading to not reproducible results.}
+
+\item{n_threads}{Number of parallel threads to use. If zero (default) or
+negative, it is determined by the internal C++ call
+thread::hardware_concurrency(), which usually reports the maximal
+number allowed by the computer hardware.}
 
 \item{output_dir}{The name of the subdirectory (relative to the current
 path or absolute) where all simulated files will be stored. This
@@ -320,6 +326,7 @@ sim(n_points = 5000,
     n_random_points_to_check_interpolation = 10000,
     select_one_turn_out_of = 1000,
     seed = 123456789,
+    n_threads = 0,
     output_dir = "",
     output = "")
 

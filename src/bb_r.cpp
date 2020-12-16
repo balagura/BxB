@@ -227,6 +227,7 @@ List beam_beam(List kicked, List kickers, List sim, bool quiet = false) {
   s.n_random_points_to_check_interpolation = as<int>(sim["n_random_points_to_check_interpolation"]);
   s.select_one_turn_out_of = as<int>(sim["select_one_turn_out_of"]);
   s.seed = as<long int>(sim["seed"]);
+  s.n_threads = as<long int>(sim["n_threads"]);
   s.output_dir = as<string>(sim["output_dir"]);
   s.output = as<string>(sim["output"]);
   vector<vector<BB_Summary_Per_Step_IP> > sum;
