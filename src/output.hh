@@ -22,6 +22,7 @@
 #define output_hh 1
 
 #include <vector>
+#include <array>
 #include <string>
 #include <complex>
 #include <atomic>
